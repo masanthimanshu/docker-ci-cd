@@ -1,0 +1,7 @@
+services:
+  server:
+    build: .
+    restart: always
+    image: testing-backend:latest
+    ports:
+      - "5500:5500"
