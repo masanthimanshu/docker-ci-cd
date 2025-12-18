@@ -21,8 +21,9 @@ resource "aws_ssm_document" "deploy_app" {
         name   = "deploy"
         action = "aws:runShellScript"
         inputs = { runCommand = [
+          "set -e",
           "docker pull ${var.docker_user}/testing:${var.image_tag}",
-          "docker run -d --name app -p 5500:5500 ${var.docker_user}/testing:${var.image_tag}"
+          "docker run -d -p 5500:5500 ${var.docker_user}/testing:${var.image_tag}"
         ] }
       }
     ]
