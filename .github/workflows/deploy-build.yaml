@@ -1,0 +1,38 @@
+name: Deploy Build
+
+on:
+  workflow_run:
+    workflows: ["Create Build"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v6
+
+      - name: Login into AWS
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          aws-region: ap-south-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Setup terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: .infrastructure/
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        working-directory: .infrastructure/
+        env:
+          TF_VAR_instance_id: ${{ secrets.EC2_INSTANCE_ID }}
+          TF_VAR_docker_user: ${{ secrets.DOCKER_HUB_USERNAME }}
+          TF_VAR_image_tag: ${{ github.event.workflow_run.head_sha }}
