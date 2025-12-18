@@ -10,7 +10,7 @@ terraform {
 provider "aws" { region = "ap-south-1" }
 
 resource "aws_ssm_document" "deploy_app" {
-  name          = "DeployApp"
+  name          = "DeployApp-${var.image_tag}"
   document_type = "Command"
 
   content = jsonencode({
