@@ -44,7 +44,7 @@ resource "aws_ssm_association" "deploy_to_ec2" {
   name = aws_ssm_document.deploy_app.name
 
   targets {
-    key    = "InstanceIds"
-    values = [var.instance_id]
+    key    = "tag:Role"
+    values = ["BackendServer"]
   }
 }
