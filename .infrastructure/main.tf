@@ -22,8 +22,18 @@ resource "aws_ssm_document" "deploy_app" {
         action = "aws:runShellScript"
         inputs = { runCommand = [
           "set -e",
-          "docker pull ${var.docker_user}/testing:${var.image_tag}",
-          "docker run -d -p 5500:5500 ${var.docker_user}/testing:${var.image_tag}"
+
+          "mkdir -p /home/ec2-user/backend",
+
+          "cat <<'EOF' > /home/ec2-user/backend/compose.yaml",
+          templatefile("${path.module}/scripts/compose.yaml.tpl", {
+            docker_user = var.docker_user
+            image_tag   = var.image_tag
+          }),
+          "EOF",
+
+          "cd /home/ec2-user/backend",
+          "sudo docker-compose up -d"
         ] }
       }
     ]
