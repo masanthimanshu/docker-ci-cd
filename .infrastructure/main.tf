@@ -23,17 +23,10 @@ resource "aws_ssm_document" "deploy_app" {
         inputs = { runCommand = [
           "set -e",
 
-          "mkdir -p /home/ec2-user/backend",
+          "docker rm -f backend || true",
 
-          "cat <<'EOF' > /home/ec2-user/backend/compose.yaml",
-          templatefile("${path.module}/scripts/compose.yaml.tpl", {
-            docker_user = var.docker_user
-            image_tag   = var.image_tag
-          }),
-          "EOF",
-
-          "cd /home/ec2-user/backend",
-          "sudo docker-compose up -d"
+          "docker pull ${var.docker_user}/testing:${var.image_tag}",
+          "docker run -d --name backend -p 5500:5500 ${var.docker_user}/testing:${var.image_tag}"
         ] }
       }
     ]
