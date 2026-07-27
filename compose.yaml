@@ -1,0 +1,46 @@
+services:
+  app:
+    build: .
+    restart: always
+    ports:
+      - "5500:5500"
+    environment:
+      - PORT=5500
+    depends_on:
+      - database
+
+  database:
+    image: mongo
+    restart: always
+    ports:
+      - "4500:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    volumes:
+      - db_data:/data/db
+
+  monitoring:
+    image: prom/prometheus
+    restart: always
+    ports:
+      - "3500:9090"
+    volumes:
+      - ./monitoring/prometheus.yaml:/etc/prometheus/prometheus.yaml
+    depends_on:
+      - app
+  
+  dashboard:
+    image: grafana/grafana-oss
+    restart: always
+    ports:
+      - "2500:3000"
+    volumes:
+      - ./monitoring/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - monitoring
+
+volumes:
+  db_data:
+  grafana_data:

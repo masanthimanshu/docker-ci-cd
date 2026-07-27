@@ -42,8 +42,8 @@ Where to look first
 - [eslint.config.js](eslint.config.js) — lint rules
 - [.github/workflows/create-build.yaml](.github/workflows/create-build.yaml) — Docker build and push workflow
 - [.github/workflows/deploy-build.yaml](.github/workflows/deploy-build.yaml) — deploy workflow triggered after build success
-- [.infrastructure/main.tf](.infrastructure/main.tf) — Terraform deploy resources for AWS SSM
-- [.infrastructure/variables.tf](.infrastructure/variables.tf) — Terraform input variables
+- [.deploy/main.tf](.deploy/main.tf) — Terraform deploy resources for AWS SSM
+- [.deploy/variables.tf](.deploy/variables.tf) — Terraform input variables
 
 Guidance for agents
 

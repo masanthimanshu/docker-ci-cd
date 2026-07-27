@@ -27,11 +27,11 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: .infrastructure/
+        working-directory: .deploy/
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
-        working-directory: .infrastructure/
+        working-directory: .deploy/
         env:
           TF_VAR_docker_user: ${{ secrets.DOCKER_HUB_USERNAME }}
           TF_VAR_image_tag: ${{ github.event.workflow_run.head_sha }}

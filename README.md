@@ -165,7 +165,7 @@ curl http://localhost:5500/user/health
 │   │   ├── create-build.yaml # Build and push Docker image
 │   │   └── deploy-build.yaml # Terraform deployment to AWS
 │   └── AGENTS.md             # AI agent instructions
-├── .infrastructure/
+├── .deploy/
 │   ├── main.tf               # AWS infrastructure definition
 │   └── variables.tf          # Terraform variables
 ├── README.md                 # This file
@@ -252,7 +252,7 @@ Triggered after the Create Build workflow completes successfully:
 1. **Checks out code** – Retrieves the repository
 2. **Configures AWS credentials** – Authenticates with AWS (region: `ap-south-1`)
 3. **Sets up Terraform** – Installs Terraform CLI
-4. **Initializes Terraform** – Runs `terraform init` in `.infrastructure/`
+4. **Initializes Terraform** – Runs `terraform init` in `.deploy/`
 5. **Applies infrastructure** – Executes `terraform apply -auto-approve` to deploy changes
 6. **Deploys container to EC2** – Container is pulled and run on EC2 instances tagged with `Role: BackendServer`
 
@@ -285,7 +285,7 @@ The infrastructure is managed using **Terraform** and deployed to AWS.
 
 ### Infrastructure Components
 
-The Terraform configuration in `.infrastructure/main.tf` defines:
+The Terraform configuration in `.deploy/main.tf` defines:
 
 1. **AWS SSM Document (`DeployApp`)** – Contains shell commands to:
    - Stop and remove any existing backend container
@@ -298,7 +298,7 @@ The Terraform configuration in `.infrastructure/main.tf` defines:
 
 ### Variables
 
-The infrastructure uses two Terraform variables (defined in `.infrastructure/variables.tf`):
+The infrastructure uses two Terraform variables (defined in `.deploy/variables.tf`):
 
 | Variable      | Type   | Description                                                |
 | ------------- | ------ | ---------------------------------------------------------- |
@@ -311,7 +311,7 @@ If deploying manually:
 
 ```bash
 # Navigate to infrastructure directory
-cd .infrastructure/
+cd .deploy/
 
 # Initialize Terraform
 terraform init
