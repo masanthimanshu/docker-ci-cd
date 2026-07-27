@@ -19,6 +19,7 @@ What this project is
 - Uses ES modules (`"type": "module"` in `package.json`).
 - Entry point: [app.js](app.js)
 - Route registration is centralized in [routes/export.js](routes/export.js).
+- Exposes Prometheus metrics at `GET /metrics` via `prom-client`.
 
 Important conventions and notes
 
@@ -28,8 +29,10 @@ Important conventions and notes
   - `GET /health` — root health check
   - `GET /auth/health` — auth route health check
   - `GET /user/health` — user route health check
+  - `GET /metrics` — Prometheus metrics output
+- Route modules export `routes` and are mounted through `routes/export.js`.
 - No test framework exists yet; do not add tests without discussing scope.
-- The `dev` script depends on `nodemon`; if it is not installed locally, use `npm install --save-dev nodemon` or run `npx nodemon .`.
+- The `dev` script depends on `nodemon`; if it is not installed locally, use `npx nodemon .` or add it as a dev dependency.
 
 Where to look first
 
