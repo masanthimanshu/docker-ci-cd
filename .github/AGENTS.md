@@ -8,31 +8,46 @@ Quick start (commands)
 
 - Install dependencies: `npm install`
 - Run in production mode: `npm start`
-- Run in development mode: `npm run dev` (requires `nodemon`)
-- Linting: run `eslint` (project contains `eslint.config.js`).
+- Run in development mode: `npm run dev` (requires `nodemon` in PATH)
+- Linting: `npx eslint . --ext .js`
+- Docker build: `docker build -t docker-ci-cd:latest .`
+- Docker run: `docker run --rm -p 5500:5500 docker-ci-cd:latest`
 
 What this project is
 
-- Minimal Express backend (single-file service).
+- Minimal Express backend example for Docker / CI-CD demos.
+- Uses ES modules (`"type": "module"` in `package.json`).
 - Entry point: [app.js](app.js)
-- Package manifest: [package.json](package.json)
+- Route registration is centralized in [routes/export.js](routes/export.js).
 
 Important conventions and notes
 
-- Uses ES modules (`"type": "module"` in `package.json`).
-- The server listens on `process.env.PORT || 5500`.
-- Keep changes minimal and focused; prefer small PRs for infra or runtime changes.
-- No test framework currently present — do not add tests without discussing scope.
+- Express v5 is used with global JSON parsing and CORS enabled.
+- Default port is `5500`; override with `PORT`.
+- Current routes:
+  - `GET /health` — root health check
+  - `GET /auth/health` — auth route health check
+  - `GET /user/health` — user route health check
+- No test framework exists yet; do not add tests without discussing scope.
+- The `dev` script depends on `nodemon`; if it is not installed locally, use `npm install --save-dev nodemon` or run `npx nodemon .`.
 
 Where to look first
 
-- [app.js](app.js) — service routes and startup logic
+- [app.js](app.js) — app setup and route mounting
+- [routes/export.js](routes/export.js) — route exports
+- [routes/auth/auth_routes.js](routes/auth/auth_routes.js) — auth route module
+- [routes/user/user_routes.js](routes/user/user_routes.js) — user route module
 - [package.json](package.json) — scripts and dependencies
-- [eslint.config.js](eslint.config.js) — linting rules
+- [Dockerfile](Dockerfile) — container build definition
+- [eslint.config.js](eslint.config.js) — lint rules
+- [.github/workflows/create-build.yaml](.github/workflows/create-build.yaml) — Docker build and push workflow
+- [.github/workflows/deploy-build.yaml](.github/workflows/deploy-build.yaml) — deploy workflow triggered after build success
+- [.infrastructure/main.tf](.infrastructure/main.tf) — Terraform deploy resources for AWS SSM
+- [.infrastructure/variables.tf](.infrastructure/variables.tf) — Terraform input variables
 
-Suggested next agent customizations
+Guidance for agents
 
-- Add a `.github/copilot-instructions.md` to document reviewer preferences and PR checks.
-- Add a small `skill` to run `npm install && npm run dev` and surface common errors.
-
-If you want, I can create the `.github/copilot-instructions.md` or implement one of the suggested skills next. Feedback welcome.
+- Prefer small, focused changes.
+- Avoid introducing new frameworks or major architecture changes without explicit scope.
+- Preserve the simple demo nature of the repository.
+- Keep deployment automation intact: build workflow pushes a multi-arch Docker image, and deploy workflow applies Terraform to create an SSM-based deploy command for EC2 targets.

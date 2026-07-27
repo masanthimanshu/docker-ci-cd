@@ -1,6 +1,6 @@
 ## Purpose
 
-- This file is a short compatibility shim for older assistants. The canonical, preferred instructions for AI agents live in [/.github/AGENTS.md](.github/AGENTS.md).
+- This file is a compatibility shim for older assistants. The canonical instructions for AI agents live in [/.github/AGENTS.md](./AGENTS.md).
 
 ## Quick verification
 
@@ -11,10 +11,10 @@
 
 ## Where to look
 
-- See the main agent guidance: [/.github/AGENTS.md](.github/AGENTS.md)
+- See the main agent guidance: [/.github/AGENTS.md](./AGENTS.md)
 - Service entrypoint: [app.js](../app.js)
 - Scripts and metadata: [package.json](../package.json)
 
 ---
 
-Keep this file minimal — agents should prefer [/.github/AGENTS.md](.github/AGENTS.md) for detailed, repository-level guidance.
+Keep this file minimal — agents should prefer [/.github/AGENTS.md](./AGENTS.md) for detailed, repository-level guidance.

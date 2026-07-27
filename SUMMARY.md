@@ -1,22 +1,21 @@
-# Node.js + Docker Backend for CI/CD Demonstration
+# DevOps-Ready Backend with CI/CD and AWS Automation
 
-A compact Express-based backend service designed to showcase a secure, containerized application foundation for modern DevOps and continuous delivery workflows. The project emphasizes modular architecture, reliable service behavior, and a streamlined path from local development to container-based deployment.
+A containerized Node.js and Express backend built to demonstrate secure, modular service delivery for modern DevOps workflows. The project combines a clean REST API, Docker-based deployment, GitHub Actions automation, and Terraform-driven AWS infrastructure to support scalable, production-oriented release processes.
 
 ## Core Technologies
 
-- Node.js, Express, and REST API development
-- Docker containerization with a production-ready image definition
-- Environment-based configuration, CORS, and JSON middleware for secure backend services
-- CI/CD-friendly architecture suited for repeatable builds and future infrastructure-as-code adoption
+- Node.js, Express, Docker, GitHub Actions, Terraform, and AWS deployment workflows
+- Modular backend architecture with auth and user routing, health checks, and environment-based configuration
+- Infrastructure-as-code, cloud deployment readiness, and security-focused design principles
 
 ## Key Contributions
 
-- Built a lightweight health-check endpoint and reusable backend service structure
-- Containerized the application to ensure consistent environments across development and deployment
-- Created a practical example of scalable, maintainable backend delivery for demos and automation pipelines
+- Built a reusable backend service with health monitoring and organized route modules
+- Automated container image builds and deployment pipelines for repeatable delivery
+- Implemented a foundation for scalable, maintainable cloud-native application operations
 
 ## Impact
 
-- Reduces setup time for launching backend services and validating deployment workflows
-- Improves build consistency through reproducible Docker-based delivery
-- Strengthens readiness for cloud-native, security-focused, and scalable application operations
+- Reduced manual deployment effort and improved release consistency
+- Strengthened maintainability through modular architecture and containerization
+- Positioned the project for secure, scalable, and automation-first backend delivery
